@@ -3,7 +3,7 @@
 
 #include "Image_loader.h"
 
-void open_bmp_file(char FileName)
+void open_bmp_file(char *FileName)
 {
 	FILE* bitmap = fopen(FileName, "rb");
 	if (bitmap == NULL)

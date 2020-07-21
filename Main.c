@@ -29,6 +29,9 @@ int main()
 	fwrite(cum, sizeof(char),80 , write);
 
 	fclose(write);
+
+	open_bmp_file("example.bmp");
+	system("cls");
 	return 0;
 
 }
