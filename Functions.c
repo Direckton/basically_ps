@@ -3,7 +3,7 @@
 
 #include "Functions.h"
 
-void TwojaStara()
+void TwojaStara(char *chuj)
 {
 
 	printf("twojastara \%c \n");

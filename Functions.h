@@ -5,7 +5,13 @@
 #include <stdio.h>
 #include <stdio.h>
 
-void TwojaStara();
+
+/** @return nie no zajebiœcie jest ogólnie*/
+void TwojaStara(char *chuj);
+
+/**ogólnie to chuj wie co ta funkcja robi ale jest zajebiœcie
+nie no tak na prawdê to tylko test jest
+eluwa*/
 
 #endif
 

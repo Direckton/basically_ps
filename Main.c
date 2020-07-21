@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "Functions.h"
+#include "Image_loader.h"
 
 int main()
 {
@@ -25,7 +26,7 @@ int main()
 		printf("file does not exist");
 		return 1;
 	}
-	fprintf(write, "%s", cum);
+	fwrite(cum, sizeof(char),80 , write);
 
 	fclose(write);
 	return 0;
