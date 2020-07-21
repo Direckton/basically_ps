@@ -25,6 +25,7 @@ int main()
 		printf("file does not exist");
 		return 1;
 	}
+	fprintf(write, "%s", cum);
 
 	fclose(write);
 	return 0;
