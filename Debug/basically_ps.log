@@ -1,3 +1,4 @@
 ﻿  Image_loader.c
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Image_loader.c(22): warning C4715: 'readFile': not all control paths return a value
+C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Image_loader.c(14,14): warning C4047: 'return': 'int' differs in levels of indirection from 'void *'
+C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Image_loader.c(29): warning C4715: 'readFile': not all control paths return a value
   basically_ps.vcxproj -> C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\Debug\basically_ps.exe

@@ -4,9 +4,15 @@
 #include "Image_loader.h"
 
 
+
 int readFile()
 {
-	BMPHeaderInfo bmpFileInfo;
+	BMPImageInfo *image=malloc(sizeof(*image));
+	if (image == NULL)
+	{
+		printf("Memory allocation failed");
+		return NULL;
+	}
 
 	FILE* stream;
 
@@ -15,8 +21,10 @@ int readFile()
 		printf("Error: the file could not be opened");
 		return 3;
 	}
-	fread(&bmpFileInfo, sizeof(BMPHeaderInfo), 1, stream);
+	fread(&image->header, sizeof(image->header), 1, stream);
 	
+	image->data = malloc(sizeof(*image->data)*image->header.image_size_bytes);
 
 	fclose(stream);
 }
+
