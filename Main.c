@@ -27,6 +27,7 @@
 
 int main()
 {
-	readFile();
+	//readFile();
+	writeFile();
 	return 0;
 }

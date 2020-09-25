@@ -36,3 +36,6 @@ typedef struct {
     unsigned char* data;
 }BMPImageInfo;
 
+int readFile();
+
+bool writeFile();
