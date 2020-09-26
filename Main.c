@@ -30,4 +30,6 @@ int main()
 	//readFile();
 	writeFile();
 	return 0;
+
+	printf("all good");
 }
