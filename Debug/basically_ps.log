@@ -1,2 +1,6 @@
-﻿  Main.c
+﻿  Image_loader.c
+C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Image_loader.c(14,14): warning C4047: 'return': 'int' differs in levels of indirection from 'void *'
+C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Image_loader.c(22,14): warning C4047: 'return': 'int' differs in levels of indirection from 'void *'
+C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Image_loader.c(30,14): warning C4047: 'return': 'int' differs in levels of indirection from 'BMPImageInfo *'
+C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Image_loader.c(36,1): warning C4047: 'initializing': 'BMPImageInfo *' differs in levels of indirection from 'int'
   basically_ps.vcxproj -> C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\Debug\basically_ps.exe

@@ -19,7 +19,7 @@ int readFile()
 	fopen_s(&stream, "test.bmp", "rb");
 	if (stream == NULL) {
 		printf("Error: the file could not be opened");
-		return 3;
+		return NULL;
 	}
 	int imageData=fread(&image->header, sizeof(image->header), 1, stream);
 	
@@ -44,7 +44,7 @@ bool writeFile()
 	}
 
 	fwrite(&image->header, sizeof(image->header), 1, stream);
-	fwrite(&image->data, image->header.image_size_bytes, 1, stream);
+	fwrite(image->data, image->header.image_size_bytes, 1, stream);
 
 	return true;
 }
