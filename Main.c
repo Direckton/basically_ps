@@ -27,7 +27,7 @@
 
 int main()
 {
-	//readFile();
+	char* error = NULL;
 	writeFile();
 	return 0;
 
