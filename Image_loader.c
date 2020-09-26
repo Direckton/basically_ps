@@ -90,5 +90,14 @@ FILE* openFile(const char* fileName, const char* mode)
 
 bool checkHeader(BMPHeaderInfo* headerInfo, FILE* stream)
 {
+	return
+		headerInfo->type==BMP_IDENTIFICATOR
+		&&headerInfo->offset==BMP_HEADER_SIZE
+		&&headerInfo->dib_header_size==DIB_HEADER_SIZE
+		&&headerInfo->num_planes==NUM_PLANE
+		&&headerInfo->compression==COMMPRESSION
+		&&headerInfo->num_colors==NUM_COLORS
+		&&headerInfo->important_colors==IMPORTANT_COLORS
+		&&headerInfo->bits_per_pixel==BITS_PER_PIXEL
 
 }

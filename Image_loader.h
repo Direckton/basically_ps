@@ -7,6 +7,15 @@
 #define BMP_HEADER_SIZE 54	//defining bmp header size for 54 bytes
 #define DIB_HEADER_SIZE 40	//same as above
 
+#define BMP_IDENTIFICATOR   0x4D42
+#define NUM_PLANE           1
+#define COMMPRESSION        0
+#define NUM_COLORS          0
+#define IMPORTANT_COLORS    0
+#define BITS_PER_PIXEL      24
+
+
+
 #pragma pack(push)			//saving original data aligment
 #pragma pack(1)				//settin data aligment to 1 byte
 
