@@ -6,26 +6,40 @@
 
 
 
-int readFile(FILE* stream, char **error)
+BMPImageInfo *readFile(FILE* stream, char **error)
 {
+	//Allocate memory for structure
 	BMPImageInfo *image=malloc(sizeof(*image));
 	if (!check(image!=NULL,error,"Not enough memory!"));
 	{
 		return NULL;
 	}
+	//Set file position to the beginning
 	rewind(stream);
-
+	//Read header
 	int imageData=fread(&image->header, sizeof(image->header), 1, stream);
 	if (!check(imageData==1, error, "Cannot read header!"));
 	{
 		return NULL;
 	}
-	
-
-
+	//Check header
+	bool valid_headder = check_header(&image->header, stream);
+	if (!check(valid_headder, error, "Invalid BMP file!"))
+	{
+		return NULL;
+	}
+	//Allocate memory for image data
 	image->data = malloc(sizeof(*image->data)*image->header.image_size_bytes);
-
+	if(!check(image->data != NULL,error,"Not enough memory!"))
+	{
+		return NULL;
+	}
+	//Read image data
 	imageData = fread(image->data,image->header.image_size_bytes, 1, stream);
+	if(!check(imageData==1, error, "Cannot read image!"))
+	{
+		return NULL;
+	}
 
 	return image;
 
@@ -88,7 +102,7 @@ FILE* openFile(const char* fileName, const char* mode)
 	return stream;
 }
 
-bool checkHeader(BMPHeaderInfo* headerInfo, FILE* stream)
+bool check_header(BMPHeaderInfo* headerInfo, FILE* stream)
 {
 	return
 		headerInfo->type == BMP_IDENTIFICATOR
