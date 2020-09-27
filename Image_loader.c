@@ -91,13 +91,56 @@ FILE* openFile(const char* fileName, const char* mode)
 bool checkHeader(BMPHeaderInfo* headerInfo, FILE* stream)
 {
 	return
-		headerInfo->type==BMP_IDENTIFICATOR
-		&&headerInfo->offset==BMP_HEADER_SIZE
-		&&headerInfo->dib_header_size==DIB_HEADER_SIZE
-		&&headerInfo->num_planes==NUM_PLANE
-		&&headerInfo->compression==COMMPRESSION
-		&&headerInfo->num_colors==NUM_COLORS
-		&&headerInfo->important_colors==IMPORTANT_COLORS
-		&&headerInfo->bits_per_pixel==BITS_PER_PIXEL
+		headerInfo->type == BMP_IDENTIFICATOR
+		&& headerInfo->offset == BMP_HEADER_SIZE
+		&& headerInfo->dib_header_size == DIB_HEADER_SIZE
+		&& headerInfo->num_planes == NUM_PLANE
+		&& headerInfo->compression == COMMPRESSION
+		&& headerInfo->num_colors == NUM_COLORS
+		&& headerInfo->important_colors == IMPORTANT_COLORS
+		&& headerInfo->bits_per_pixel == BITS_PER_PIXEL
+		&& headerInfo->size == getFileSize(stream)
+		&& headerInfo->image_size_bytes == get_image_size_in_bytes(stream);
 
 }
+
+long get_file_size(FILE* stream)
+{
+	long currentPosition = ftell(stream);
+	if (currentPosition == -1)
+		return -1;
+	
+	if (fseek(stream, 0, SEEK_END) != 0)
+		return -2;
+
+	long fileSize = ftell(stream);
+	if (fileSize == -1)
+		return -3;
+
+	if (fseek(stream, currentPosition, SEEK_SET) != 0)
+		return -4;
+
+	return fileSize;
+}
+
+int get_image_size_in_bytes(BMPHeaderInfo* bmpHeader)
+{
+	return get_image_row_size_bytes(bmpHeader) * bmpHeader->height_px;
+}
+
+int get_image_row_size_bytes(BMPHeaderInfo* bmpHeader)
+{
+	int bytes_per_row_without_padding = bmpHeader->width_px * get_bytes_per_pixel(bmpHeader);
+	return bytes_per_row_without_padding + get_padding(bmpHeader);
+}
+
+int get_bytes_per_pixel(BMPHeaderInfo* bmpHeader)
+{
+	return bmpHeader->bits_per_pixel / BITS_PER_BYTE;
+}
+
+int get_padding(BMPHeaderInfo* bmpHeader)
+{
+	return (4 - (bmpHeader->width_px * _get_bytes_per_pixel(bmpHeader)) % 4) % 4;
+}
+

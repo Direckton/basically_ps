@@ -13,6 +13,7 @@
 #define NUM_COLORS          0
 #define IMPORTANT_COLORS    0
 #define BITS_PER_PIXEL      24
+#define BITS_PER_BYTE       8
 
 
 
