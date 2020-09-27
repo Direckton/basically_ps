@@ -46,6 +46,32 @@ typedef struct {
     unsigned char* data;
 }BMPImageInfo;
 
-int readFile();
+BMPImageInfo *read_bmp(FILE *stream, char** error);
 
-bool writeFile();
+bool write_bmp(FILE* stream, BMPImageInfo* image, char** error);
+
+bool check(bool condition, char** error, const char* error_message);
+
+char* string_duplicate(const char* string);
+
+FILE* open_file(const char* fileName, const char* mode);
+
+bool check_header(BMPHeaderInfo* headerInfo, FILE* stream);
+
+long get_file_size(FILE* stream);
+
+int get_image_size_in_bytes(BMPHeaderInfo* bmpHeader);
+
+int get_image_row_size_bytes(BMPHeaderInfo* bmpHeader);
+
+int get_bytes_per_pixel(BMPHeaderInfo* bmpHeader);
+
+int get_padding(BMPHeaderInfo* bmpHeader);
+
+BMPImageInfo* read_image(const char* file_name, char** error);
+
+void handle_error(char** error, FILE* stream, BMPImageInfo* image);
+
+void free_memory(FILE* stream, BMPImageInfo* image, char** error);
+
+void free_bmp(BMPImageInfo* image);

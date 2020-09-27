@@ -6,11 +6,12 @@
 
 
 
-BMPImageInfo *readFile(FILE* stream, char **error)
+
+BMPImageInfo *read_bmp(FILE* stream, char **error)
 {
 	//Allocate memory for structure
 	BMPImageInfo *image=malloc(sizeof(*image));
-	if (!check(image!=NULL,error,"Not enough memory!"));
+	if (!check(image!=NULL, error, "Not enough memory!"));
 	{
 		return NULL;
 	}
@@ -36,7 +37,7 @@ BMPImageInfo *readFile(FILE* stream, char **error)
 	}
 	//Read image data
 	imageData = fread(image->data,image->header.image_size_bytes, 1, stream);
-	if(!check(imageData==1, error, "Cannot read image!"))
+	if(!check(imageData == 1, error, "Cannot read image!"))
 	{
 		return NULL;
 	}
@@ -45,66 +46,68 @@ BMPImageInfo *readFile(FILE* stream, char **error)
 
 }
 
-bool writeFile()
+bool write_bmp(FILE *stream, BMPImageInfo *image, char **error)
 {
-	BMPImageInfo *image=readFile(const char fileName, char** error);
-
-	FILE* stream;
-
-	fopen_s(&stream, "copy of test.bmp", "wb");
-	if (stream == NULL) {
-		printf("Error: the file could not be opened");
-		return 3;
+	rewind(stream);
+	int image_data = fwrite(&image->header, sizeof(image->header), 1, stream);
+	if (!check(image_data == 1, error, "Cannot write header!"))
+	{
+		return false;
 	}
-
-	fwrite(&image->header, sizeof(image->header), 1, stream);
-	fwrite(image->data, image->header.image_size_bytes, 1, stream);
+	
+	image_data = fwrite(image->data, image->header.image_size_bytes, 1, stream);
+	if (!check(image_data == 1, error, "Cannot write image!"))
+	{
+		return false;
+	}
 
 	return true;
 }
 
-bool check(bool condition, char** error, const char* errorMessage)
+bool check(bool condition, char** error, const char* error_message)
 {
 	bool valid = true;
 	if (!condition)
 	{
 		valid = false;
-		if (error == NULL)
+		if (*error == NULL)
 		{
-			*error = stringDuplicate(errorMessage);
+			*error = string_duplicate(error_message);
 		}
 	}
 	return valid;
 }
 
-char *stringDuplicate(const char *string)
+
+char *string_duplicate(const char *string)
 {
 	char* copy = malloc(sizeof(*copy) * (strlen(string) + 1));
 	if (copy == NULL)
 	{
 		return "Not enough memory for error message";
 	}
-	strcpy(copy, string);
+	strcpy_s(copy,sizeof(copy), string);
 	
 	return copy;
 }
 
-FILE* openFile(const char* fileName, const char* mode)
+FILE* open_file(const char* fileName, const char* mode)
 {
-	FILE* stream = fopen_s(&stream, fileName, mode);
-	if (stream == NULL)
+	FILE *stream = fopen_s(&stream, fileName, mode);
+	
+	/*if (stream == NULL)
 	{
 		fprintf(stderr, "Could not open the file %s!",fileName);
 
 		exit(EXIT_FAILURE);
-	}
+	}*/
 
 	return stream;
 }
 
 bool check_header(BMPHeaderInfo* headerInfo, FILE* stream)
 {
-	return
+	if (
 		headerInfo->type == BMP_IDENTIFICATOR
 		&& headerInfo->offset == BMP_HEADER_SIZE
 		&& headerInfo->dib_header_size == DIB_HEADER_SIZE
@@ -113,9 +116,12 @@ bool check_header(BMPHeaderInfo* headerInfo, FILE* stream)
 		&& headerInfo->num_colors == NUM_COLORS
 		&& headerInfo->important_colors == IMPORTANT_COLORS
 		&& headerInfo->bits_per_pixel == BITS_PER_PIXEL
-		&& headerInfo->size == getFileSize(stream)
-		&& headerInfo->image_size_bytes == get_image_size_in_bytes(stream);
-
+		&& headerInfo->size == get_file_size(stream)
+		&& headerInfo->image_size_bytes == get_image_size_in_bytes(stream)
+		)
+		return true;
+	else
+		return false;
 }
 
 long get_file_size(FILE* stream)
@@ -155,6 +161,45 @@ int get_bytes_per_pixel(BMPHeaderInfo* bmpHeader)
 
 int get_padding(BMPHeaderInfo* bmpHeader)
 {
-	return (4 - (bmpHeader->width_px * _get_bytes_per_pixel(bmpHeader)) % 4) % 4;
+	return (4 - (bmpHeader->width_px * get_bytes_per_pixel(bmpHeader)) % 4) % 4;
 }
 
+
+BMPImageInfo* read_image(const char* file_name, char **error)
+{
+	FILE* pInput = open_file(file_name, "rb");
+
+	BMPImageInfo* image = read_bmp(pInput, error);
+	if (*error != NULL)
+	{
+		handle_error(error, pInput, image);
+	}
+	fclose(pInput);
+
+	return image;
+}
+
+void handle_error(char **error, FILE *stream, BMPImageInfo *image)
+{
+	fprintf(stderr, "ERROR: %s\n", *error);
+	free_memory(stream, image, error);
+
+	exit(EXIT_FAILURE);
+}
+
+void free_memory(FILE* stream, BMPImageInfo* image, char** error)
+{
+	if (stream != NULL)
+	{
+		fclose(stream);
+	}
+	free_bmp(image);
+	free(*error);
+}
+
+void free_bmp(BMPImageInfo* image)
+{
+	free(image->data);
+	free(image);
+	image = 0;
+}

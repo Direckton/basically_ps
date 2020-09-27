@@ -28,7 +28,8 @@
 int main()
 {
 	char* error = NULL;
-	writeFile();
+	BMPImageInfo *image= read_image("test.bmp", &error);
+
 	return 0;
 
 	printf("all good");
