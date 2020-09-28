@@ -8,12 +8,12 @@
 #define DIB_HEADER_SIZE 40	//same as above
 
 #define BMP_IDENTIFICATOR   0x4D42
-#define NUM_PLANE           1
+#define NUM_PLANE           0x1
 #define COMMPRESSION        0
 #define NUM_COLORS          0
 #define IMPORTANT_COLORS    0
-#define BITS_PER_PIXEL      24
-#define BITS_PER_BYTE       8
+#define BITS_PER_PIXEL      0x18
+#define BITS_PER_BYTE       0x8
 
 
 
@@ -50,8 +50,6 @@ BMPImageInfo *read_bmp(FILE *stream, char** error);
 
 bool write_bmp(FILE* stream, BMPImageInfo* image, char** error);
 
-bool check(bool condition, char** error, const char* error_message);
-
 char* string_duplicate(const char* string);
 
 FILE* open_file(const char* fileName, const char* mode);
@@ -68,10 +66,14 @@ int get_bytes_per_pixel(BMPHeaderInfo* bmpHeader);
 
 int get_padding(BMPHeaderInfo* bmpHeader);
 
-BMPImageInfo* read_image(const char* file_name, char** error);
+BMPImageInfo* read_image(const char* file_name);
 
 void handle_error(char** error, FILE* stream, BMPImageInfo* image);
 
 void free_memory(FILE* stream, BMPImageInfo* image, char** error);
 
 void free_bmp(BMPImageInfo* image);
+
+void write_image(const char* file_name, BMPImageInfo* image);
+
+void add_error(char** error, const char* error_message);

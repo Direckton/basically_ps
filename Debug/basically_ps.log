@@ -1,4 +1,2 @@
-﻿  Image_loader.c
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Image_loader.c(96,1): warning C4047: 'initializing': 'FILE *' differs in levels of indirection from 'errno_t'
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Image_loader.c(120,68): warning C4133: 'function': incompatible types - from 'FILE *' to 'BMPHeaderInfo *'
+﻿  Main.c
   basically_ps.vcxproj -> C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\Debug\basically_ps.exe

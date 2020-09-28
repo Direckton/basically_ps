@@ -27,8 +27,9 @@
 
 int main()
 {
-	char* error = NULL;
-	BMPImageInfo *image= read_image("test.bmp", &error);
+	BMPImageInfo* image = read_image("lul.bmp");
+	write_image("copy_of_test.bmp", image);
+	
 
 	return 0;
 
