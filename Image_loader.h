@@ -42,8 +42,17 @@ typedef struct {
 #pragma pack(pop)           //restore saved data aligment
 
 typedef struct {
+    uint8_t blue;
+    uint8_t green;
+    uint8_t red;
+    uint8_t alpha;
+}Pixel;
+
+
+typedef struct {
     BMPHeaderInfo header;
     unsigned char* data;
+    Pixel** pixels;
 }BMPImageInfo;
 
 BMPImageInfo *read_bmp(FILE *stream, char** error);

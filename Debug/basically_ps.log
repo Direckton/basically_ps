@@ -1,2 +1,3 @@
-﻿  Main.c
+﻿  Filters.c
+C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(22): warning C4716: 'upperPass': must return a value
   basically_ps.vcxproj -> C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\Debug\basically_ps.exe

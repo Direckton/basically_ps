@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "Image_loader.h"
+#include "Filters.h"
 
 //int readFile()
 //{
@@ -27,8 +28,12 @@
 
 int main()
 {
-	BMPImageInfo* image = read_image("lul.bmp");
+	BMPImageInfo* image = read_image("test.bmp");
 	write_image("copy_of_test.bmp", image);
+	BMPImageInfo* filtered = read_image("copy_of_test.bmp");
+	//wypisaæ listê filtrów i wybraæ
+	upperPass(image);
+
 	
 
 	return 0;

@@ -47,6 +47,29 @@ BMPImageInfo *read_bmp(FILE* stream, char **error)
 		add_error(error, "Cannot read image!");
 		return NULL;
 	}
+	//Allocate memory for 2D pixel array
+	image->pixels = malloc((image->header.height_px) * sizeof(Pixel*));
+	if (image->pixels == NULL)
+	{
+		add_error(error, "Not enough memory!");
+		return NULL;
+	}
+	for (int i = 0; i < image->header.height_px; i++)
+	{
+		image->pixels[i] = malloc((image->header.width_px) * sizeof(Pixel));
+		if (image->pixels[i] == NULL)
+		{
+			add_error(error, "Not enough memory!");
+			return NULL;
+		}
+	}
+
+	fseek(stream, 54, SEEK_SET);
+
+	for (int y = 0; y < image->header.height_px; y++)
+	{
+		fread(image->pixels[y], sizeof(Pixel), image->header.width_px, stream);
+	}
 
 	return image;
 	
