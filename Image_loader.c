@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,46 +24,37 @@ BMPImageInfo *read_bmp(FILE* stream, char **error)
 	int imageData=fread(&image->header, sizeof(image->header), 1, stream);
 	if (imageData != 1)
 	{
-		add_error(error, "Not enough memory!");
+		add_error(error, "Not enough memory for header!");
 		return NULL;
 	}
+	image->header.image_size_bytes = image->header.size - 54;
 	//Check header
 	bool valid_header = check_header(&image->header, stream);
 	if (!valid_header)
 	{
-		add_error(error, "Not enough memory!");
+		add_error(error, "Invalid header!");
 		return NULL;
 	}
-	//Allocate memory for image data
-	image->data = malloc(sizeof(*image->data)*image->header.image_size_bytes);
-	if(image->data == NULL)
-	{
-		add_error(error, "Not enough memory!");
-		return NULL;
-	}
-	//Read image data
-	imageData = fread(image->data,image->header.image_size_bytes, 1, stream);
-	if(imageData != 1)
-	{
-		add_error(error, "Cannot read image!");
-		return NULL;
-	}
+
 	//Allocate memory for 2D pixel array
-	image->pixels = malloc((image->header.height_px) * sizeof(Pixel*));
+
+	image->pixels = (Pixel**)malloc(image->header.height_px * sizeof(Pixel*));
 	if (image->pixels == NULL)
 	{
-		add_error(error, "Not enough memory!");
+		add_error(error, "Not enough memory for pixel array!");
 		return NULL;
 	}
 	for (int i = 0; i < image->header.height_px; i++)
 	{
-		image->pixels[i] = malloc((image->header.width_px) * sizeof(Pixel));
+		image->pixels[i] = (Pixel*)malloc(image->header.width_px * sizeof(Pixel));
 		if (image->pixels[i] == NULL)
 		{
-			add_error(error, "Not enough memory!");
+			add_error(error, "Could not add pixels to array!");
 			return NULL;
 		}
 	}
+
+	rewind(stream);
 
 	fseek(stream, 54, SEEK_SET);
 
@@ -72,7 +64,6 @@ BMPImageInfo *read_bmp(FILE* stream, char **error)
 	}
 
 	return image;
-	
 }
 
 bool write_bmp(FILE *stream, BMPImageInfo *image, char **error)
@@ -85,11 +76,9 @@ bool write_bmp(FILE *stream, BMPImageInfo *image, char **error)
 		return false;
 	}
 	
-	image_data = fwrite(image->data, image->header.image_size_bytes, 1, stream);
-	if (image_data != 1)
+	for (int y = 0; y < image->header.height_px; y++)
 	{
-		add_error(error, "No image data to write!");
-		return false;
+		fwrite(image->pixels[y], sizeof(Pixel), image->header.width_px, stream);
 	}
 
 	return true;
@@ -102,18 +91,6 @@ void add_error(char **error, const char* error_message)
 }
 
 
-
-char *string_duplicate(const char *string)
-{
-	char* copy = malloc(sizeof(char) * (strlen(string) + 1));
-	if (copy == NULL)
-	{
-		return "Not enough memory for error message";
-	}
-	strcpy_s(copy,sizeof(copy), string);
-	
-	return copy;
-}
 
 FILE* open_file(const char* fileName, const char* mode)
 {
@@ -142,7 +119,7 @@ bool check_header(BMPHeaderInfo* headerInfo, FILE* stream)
 		&& headerInfo->important_colors == IMPORTANT_COLORS
 		&& headerInfo->bits_per_pixel == BITS_PER_PIXEL
 		&& headerInfo->size == get_file_size(stream)
-		&& headerInfo->image_size_bytes == get_image_size_in_bytes(headerInfo)
+		&& (headerInfo->image_size_bytes == get_image_size_in_bytes(headerInfo)||headerInfo->image_size_bytes == 0)
 		) return true;
 
 		return false;
@@ -201,6 +178,7 @@ BMPImageInfo* read_image(const char* file_name)
 	
 	fclose(pInput);
 
+
 	return image;
 }
 
@@ -219,14 +197,15 @@ void free_memory(FILE* stream, BMPImageInfo* image, char** error)
 		fclose(stream);
 	}
 	free_bmp(image);
+	free(*error);
 }
 
 void free_bmp(BMPImageInfo* image)
 {
-	if (!image || !image->data)
+	if (!image)
 		return;
 	
-	free(image->data);
+	free(image->pixels);
 	free(image);
 	image = 0;
 }
@@ -241,4 +220,17 @@ void write_image(const char* file_name, BMPImageInfo* image)
 		handle_error(error, pOutput, image);
 	}
 	fclose(pOutput);
+}
+
+void free_image(BMPImageInfo** image)
+{
+	if (image == NULL)
+		return;
+
+	for (int i = 0; i < (*image)->header.height_px; i++)
+	{
+		free((*image)->pixels[i]);
+	}
+	free((*image)->pixels);
+	free(*image);
 }

@@ -1,5 +1,6 @@
 #pragma once
-
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
 #include <stdint.h>			//allows to set integer size
 #include <stdbool.h>		//allows use of booleans types
 #include <stdio.h>			//allows I/O operations
@@ -45,21 +46,18 @@ typedef struct {
     uint8_t blue;
     uint8_t green;
     uint8_t red;
-    uint8_t alpha;
 }Pixel;
 
 
 typedef struct {
     BMPHeaderInfo header;
-    unsigned char* data;
+    //unsigned char* data;
     Pixel** pixels;
 }BMPImageInfo;
 
 BMPImageInfo *read_bmp(FILE *stream, char** error);
 
 bool write_bmp(FILE* stream, BMPImageInfo* image, char** error);
-
-char* string_duplicate(const char* string);
 
 FILE* open_file(const char* fileName, const char* mode);
 
@@ -84,5 +82,7 @@ void free_memory(FILE* stream, BMPImageInfo* image, char** error);
 void free_bmp(BMPImageInfo* image);
 
 void write_image(const char* file_name, BMPImageInfo* image);
+
+void free_image(BMPImageInfo** image);
 
 void add_error(char** error, const char* error_message);

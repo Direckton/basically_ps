@@ -1,3 +1,7 @@
 ﻿  Filters.c
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(22): warning C4716: 'upperPass': must return a value
+C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(34,20): warning C4013: 'newPix' undefined; assuming extern returning int
+C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(55,23): warning C4013: 'check_border' undefined; assuming extern returning int
+  Main.c
+  Generating Code...
+C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(90): warning C4715: 'check_border': not all control paths return a value
   basically_ps.vcxproj -> C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\Debug\basically_ps.exe
