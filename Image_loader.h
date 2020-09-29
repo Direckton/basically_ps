@@ -1,6 +1,8 @@
 #pragma once
+#ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
+#endif
 #include <stdint.h>			//allows to set integer size
 #include <stdbool.h>		//allows use of booleans types
 #include <stdio.h>			//allows I/O operations
