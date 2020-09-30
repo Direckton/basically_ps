@@ -68,6 +68,11 @@ void median_filter(BMPImageInfo** image);
 @param color character containing coresponding RGB letter*/
 int find_average(BMPImageInfo** image, int x, int y, char color);
 
+/**Function accepts pointer to lements of array for qsort
+@param a pointer to const void type
+@param b pointer to const void type*/
+int cmpfunc(const void* a, const void* b);
+
 /**Function passes pointer on find_average function to linear_filtering function
 @param image pointer to structure containing bmp image*/
 void average_filter(BMPImageInfo** image);

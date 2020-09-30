@@ -1,31 +1,5 @@
-﻿  Filters.c
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(31,29): warning C4028: formal parameter 1 different from declaration
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(30,1): warning C4028: formal parameter 1 different from declaration
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(37,29): warning C4028: formal parameter 1 different from declaration
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(36,1): warning C4028: formal parameter 1 different from declaration
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(43,29): warning C4028: formal parameter 1 different from declaration
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(42,1): warning C4028: formal parameter 1 different from declaration
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(49,29): warning C4028: formal parameter 1 different from declaration
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(48,1): warning C4028: formal parameter 1 different from declaration
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(64,20): warning C4013: 'newPix' undefined; assuming extern returning int
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(92,44): warning C4047: 'function': 'BMPImageInfo *' differs in levels of indirection from 'BMPImageInfo **'
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(92,39): warning C4024: 'check_border': different types for formal and actual parameter 1
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(142,40): warning C4047: 'function': 'BMPImageInfo *' differs in levels of indirection from 'BMPImageInfo **'
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(142,35): warning C4024: 'check_border': different types for formal and actual parameter 1
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(160,29): warning C4047: 'function': 'BMPImageInfo *' differs in levels of indirection from 'BMPImageInfo **'
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(160,24): warning C4024: 'check_border': different types for formal and actual parameter 1
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(164,7): warning C4013: 'floor' undefined; assuming extern returning int
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(165,16): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(163,1): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(185,6): warning C4101: 'temp': unreferenced local variable
-  Image_loader.c
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Image_loader.c(92,25): warning C4090: '=': different 'const' qualifiers
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Image_loader.c(222,21): warning C4047: 'function': 'char **' differs in levels of indirection from 'char *'
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Image_loader.c(222,16): warning C4024: 'handle_error': different types for formal and actual parameter 1
-  Main.c
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Main.c(52,10): warning C4129: 'N': unrecognized character escape sequence
+﻿  Main.c
+C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Main.c(50,10): warning C4129: 'C': unrecognized character escape sequence
 C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Main.c(36,1): warning C4090: 'initializing': different 'const' qualifiers
 C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Main.c(37,1): warning C4090: 'initializing': different 'const' qualifiers
-  Generating Code...
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(239): warning C4715: 'check_border': not all control paths return a value
   basically_ps.vcxproj -> C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\Debug\basically_ps.exe

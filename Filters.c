@@ -45,7 +45,7 @@ void median_filter(BMPImageInfo** image)
 
 void average_filter(BMPImageInfo** image)
 {
-	int (*foo)(BMPImageInfo, int, int, char) = &averaging;
+	int (*foo)(BMPImageInfo, int, int, char) = &find_average;
 	linear_filtering(image, foo);
 }
 
@@ -149,7 +149,7 @@ int find_minimum(BMPImageInfo** image, int x, int y, char color)
 }
 
 
-int averaging(BMPImageInfo** image, int x, int y, char color)
+int find_average(BMPImageInfo** image, int x, int y, char color)
 {
 
 	int sum=0;

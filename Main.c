@@ -35,21 +35,19 @@ int main(int argc, const char** argv)
 		OPT_GROUP("Basic options"),
 		OPT_STRING('p', "img", &image_path, "path to image"),
 		OPT_STRING('o', "out", &output_image_name, "name for processed output image"),
-		OPT_BOOLEAN('b', "boxblur", &boxblur, "box blurs an image"),
-		OPT_BOOLEAN('s', "sharpen", &sharpen, "sharpens an image"),
-		OPT_BOOLEAN('a', "avg", &avg, "averages pixel with values around that pixel? XD"),
-		OPT_BOOLEAN('n', "min", &min, ""),
-		OPT_BOOLEAN('x', "max", &max, ""),
-		OPT_BOOLEAN('m', "median", &median, ""),
+		OPT_BOOLEAN('b', "boxblur", &boxblur, "lower pass filter(blur)"),
+		OPT_BOOLEAN('s', "sharpen", &sharpen, "upper pass filter(sharpen)"),
+		OPT_BOOLEAN('a', "avg", &avg, "average of 3x3 array of pixels"),
+		OPT_BOOLEAN('n', "min", &min, "minimum of 3x3 array of pixels"),
+		OPT_BOOLEAN('x', "max", &max, "maximum of 3x3 array of pixels"),
+		OPT_BOOLEAN('m', "median", &median, "median of 3x3 sorted array of pixels"),
 		OPT_END()
 	};
 
 	struct argparse argparse;
 	argparse_init(&argparse, options, usage, 0);
-	argparse_describe(&argparse, "\nThis is basically minified ripoff of popular image altering program call Photoshop.\
-									I don't know maybe you've heard about it. It's kinda trash that's why you are using\
-									this program that never lets you down.",
-								 "\Nothing to see here just quitting.");
+	argparse_describe(&argparse, "\nThis is basically minimized form of popular image altering program called Photoshop.",
+								 "\Choose image path, image filter and output path.");
 	argc = argparse_parse(&argparse, argc, argv);
 
 	if (image_path == NULL)
@@ -68,34 +66,34 @@ int main(int argc, const char** argv)
 	
 	if (boxblur != 0)
 	{
-		puts(" Running box blur!");
+		puts(" Running upper pass filter!");
 		box_blur(&image);
 	}
 	else if (sharpen != 0)
 	{
-		puts("Sharpening an image!");
+		puts(" Running lower pass filter!");
 		sharpen_f(&image);
 		
 	}
 	else if (avg != 0)
 	{
-		puts("Averaging an image!");
+		puts(" Running average filter!");
 		average_filter(&image);
 		
 	}
 	else if (min != 0)
 	{
-		puts("Just min");
+		puts(" Running minimum filter!");
 		minimum_filter(&image);
 	}
 	else if (max != 0)
 	{
-		puts("Just max");
+		puts(" Running maximum filter!");
 		maximum_filter(&image);
 	}
 	else if (median != 0)
 	{
-		puts("Median who?");
+		puts(" Running median filter!");
 		median_filter(&image);
 		
 	}

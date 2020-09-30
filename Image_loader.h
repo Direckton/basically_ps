@@ -27,7 +27,7 @@
 #pragma pack(1)				//settin data aligment to 1 byte
 
 typedef struct {
-    uint16_t type;              /// Magic identifier: 0x4d42
+    uint16_t type;              /// Bitmap identifier: 0x4d42
     uint32_t size;              /// File size in bytes
     uint16_t reserved1;         /// Not used
     uint16_t reserved2;         /// Not used
@@ -56,7 +56,6 @@ typedef struct {
 
 typedef struct {
     BMPHeaderInfo header;
-    //unsigned char* data;
     Pixel** pixels;
 }BMPImageInfo;
 
