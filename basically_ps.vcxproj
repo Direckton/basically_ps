@@ -145,14 +145,12 @@
   <ItemGroup>
     <ClCompile Include="argparse.c" />
     <ClCompile Include="Filters.c" />
-    <ClCompile Include="Functions.c" />
     <ClCompile Include="Image_loader.c" />
     <ClCompile Include="Main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="argparse.h" />
     <ClInclude Include="Filters.h" />
-    <ClInclude Include="Functions.h" />
     <ClInclude Include="Image_loader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

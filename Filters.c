@@ -9,11 +9,11 @@
 
 void box_blur(BMPImageInfo** image)
 {
-	int upper_pass_kernel[3][3]= {	{1,1,1},
+	int lower_pass_kernel[3][3]= {	{1,1,1},
 									{1,1,1},
 									{1,1,1}};
 	int normalizing_factor = 9;
-	filtering(image, upper_pass_kernel, normalizing_factor);
+	kernel_filtering(image, lower_pass_kernel, normalizing_factor);
 }
 
 void sharpen_f(BMPImageInfo** image)
@@ -22,11 +22,34 @@ void sharpen_f(BMPImageInfo** image)
 									{-1,5,-1},
 									{0,-1,0} };
 	int normalizing_factor = 1;
-	filtering(image, upper_pass_kernel,normalizing_factor);
+	kernel_filtering(image, upper_pass_kernel,normalizing_factor);
 }
 
+void maximum_filter(BMPImageInfo **image)
+{
+	int (*foo)(BMPImageInfo,int,int,char)=&find_maximum;
+	linear_filtering(image, foo);
+}
 
-void filtering(BMPImageInfo** image, int kernel[3][3], int normalizing_factor)
+void minimum_filter(BMPImageInfo** image)
+{
+	int (*foo)(BMPImageInfo, int, int, char) = &find_minimum;
+	linear_filtering(image, foo);
+}
+
+void median_filter(BMPImageInfo** image)
+{
+	int (*foo)(BMPImageInfo, int, int, char) = &find_median;
+	linear_filtering(image, foo);
+}
+
+void average_filter(BMPImageInfo** image)
+{
+	int (*foo)(BMPImageInfo, int, int, char) = &averaging;
+	linear_filtering(image, foo);
+}
+
+void kernel_filtering(BMPImageInfo** image, int kernel[3][3], int normalizing_factor)
 {	
 	int midPixB = 0;
 	int midPixG = 0;
@@ -66,17 +89,16 @@ int find_maximum(BMPImageInfo** image, int x, int y, char color)
 	{
 		for (int j = -1; j < 2; j++)
 		{
-			array[i + 1][y + 1] = check_border(image, x + i, y + j, color);
-			if (array[i + 1][y + 1] > max)
-				max = array[i + 1][y + 1];
+			array[i + 1][j + 1] = check_border(image, x + i, y + j, color);
+			if (array[i + 1][j + 1] > max)
+				max = array[i + 1][j + 1];
 		}
 	}
 
 	return max;
 }
 
-
-void maximum_filtering(BMPImageInfo** image)
+void linear_filtering(BMPImageInfo** image,int (*foo)(BMPImageInfo*,int,int,char))
 {
 	int midPixB = 0;
 	int midPixG = 0;
@@ -88,11 +110,11 @@ void maximum_filtering(BMPImageInfo** image)
 		for (int x = 0; x < (*image)->header.width_px; x++)
 		{
 			//sum for blue
-			midPixB = find_maximum(*image, x, y, 'b');
+			midPixB = foo(*image, x, y, 'b');
 			//sum for green
-			midPixG = find_maximum(*image, x, y, 'g');
+			midPixG = foo(*image, x, y, 'g');
 			//sum for red
-			midPixR = find_maximum(*image, x, y, 'r');
+			midPixR = foo(*image, x, y, 'r');
 
 			// makes sure the pixels are in the range of 0-255
 			midPixB = clipping(midPixB);
@@ -108,37 +130,6 @@ void maximum_filtering(BMPImageInfo** image)
 
 }
 
-void minimum_filtering(BMPImageInfo** image)
-{
-	int midPixB = 0;
-	int midPixG = 0;
-	int midPixR = 0;
-
-
-	for (int y = 0; y < (*image)->header.height_px; y++)
-	{
-		for (int x = 0; x < (*image)->header.width_px; x++)
-		{
-			//sum for blue
-			midPixB = find_minimum(*image, x, y, 'b');
-			//sum for green
-			midPixG = find_minimum(*image, x, y, 'g');
-			//sum for red
-			midPixR = find_minimum(*image, x, y, 'r');
-
-			// makes sure the pixels are in the range of 0-255
-			midPixB = clipping(midPixB);
-			midPixG = clipping(midPixG);
-			midPixR = clipping(midPixR);
-
-			// assigns the values of newly calculated pixel to target pixel
-			(*image)->pixels[y][x].blue = midPixB;
-			(*image)->pixels[y][x].green = midPixG;
-			(*image)->pixels[y][x].red = midPixR;
-		}
-	}
-
-}
 
 int find_minimum(BMPImageInfo** image, int x, int y, char color)
 {
@@ -148,46 +139,15 @@ int find_minimum(BMPImageInfo** image, int x, int y, char color)
 	{
 		for (int j = -1; j < 2; j++)
 		{
-			array[i+1][y+1] = check_border(image, x + i, y + j, color);
-			if (array[i + 1][y + 1] < min)
-				min = array[i + 1][y + 1];
+			array[i+1][j+1] = check_border(image, x + i, y + j, color);
+			if (array[i + 1][j + 1] < min)
+				min = array[i + 1][j + 1];
 		}
 	}
 
 	return min;
 }
 
-void median_filtering(BMPImageInfo** image)
-{
-	int midPixB = 0;
-	int midPixG = 0;
-	int midPixR = 0;
-
-
-	for (int y = 0; y < (*image)->header.height_px; y++)
-	{
-		for (int x = 0; x < (*image)->header.width_px; x++)
-		{
-			//sum for blue
-			midPixB = find_median(*image, x, y, 'b');
-			//sum for green
-			midPixG = find_median(*image, x, y, 'g');
-			//sum for red
-			midPixR = find_median(*image, x, y, 'r');
-
-			// makes sure the pixels are in the range of 0-255
-			midPixB = clipping(midPixB);
-			midPixG = clipping(midPixG);
-			midPixR = clipping(midPixR);
-
-			// assigns the values of newly calculated pixel to target pixel
-			(*image)->pixels[y][x].blue = midPixB;
-			(*image)->pixels[y][x].green = midPixG;
-			(*image)->pixels[y][x].red = midPixR;
-		}
-	}
-
-}
 
 int averaging(BMPImageInfo** image, int x, int y, char color)
 {
@@ -203,39 +163,6 @@ int averaging(BMPImageInfo** image, int x, int y, char color)
 	float average = sum / 9;
 	floor(average);
 	return average;
-}
-
-void average_filtering(BMPImageInfo **image)
-{
-
-	int midPixB = 0;
-	int midPixG = 0;
-	int midPixR = 0;
-
-
-	for (int y = 0; y < (*image)->header.height_px; y++)
-	{
-		for (int x = 0; x < (*image)->header.width_px; x++)
-		{
-			//sum for blue
-			midPixB = averaging(*image, x, y, 'b');
-			//sum for green
-			midPixG = averaging(*image, x, y, 'g');
-			//sum for red
-			midPixR = averaging(*image, x, y, 'r');
-
-			// makes sure the pixels are in the range of 0-255
-			midPixB = clipping(midPixB);
-			midPixG = clipping(midPixG);
-			midPixR = clipping(midPixR);
-
-			// assigns the values of newly calculated pixel to target pixel
-			(*image)->pixels[y][x].blue = midPixB;
-			(*image)->pixels[y][x].green = midPixG;
-			(*image)->pixels[y][x].red = midPixR;
-		}
-	}
-
 }
 
 int cmpfunc (const void * a, const void * b) {

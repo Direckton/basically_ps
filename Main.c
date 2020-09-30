@@ -80,23 +80,23 @@ int main(int argc, const char** argv)
 	else if (avg != 0)
 	{
 		puts("Averaging an image!");
-		average_filtering(&image);
+		average_filter(&image);
 		
 	}
 	else if (min != 0)
 	{
 		puts("Just min");
-		minimum_filtering(&image);
+		minimum_filter(&image);
 	}
 	else if (max != 0)
 	{
 		puts("Just max");
-		maximum_filtering(&image);
+		maximum_filter(&image);
 	}
 	else if (median != 0)
 	{
 		puts("Median who?");
-		median_filtering(&image);
+		median_filter(&image);
 		
 	}
 		

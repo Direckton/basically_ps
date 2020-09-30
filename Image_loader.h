@@ -127,7 +127,7 @@ void free_bmp(BMPImageInfo* image);
 void write_image(const char* file_name, BMPImageInfo* image);
 
 /** Function that frees allocated memory in case of successful image manipulation
-@param image structure containing bmp image*/
+@param image pointer to structure containing bmp image*/
 void free_image(BMPImageInfo** image);
 
 /** Function that adds error to register and exits the funtion with error
