@@ -66,34 +66,34 @@ int main(int argc, const char** argv)
 	
 	if (boxblur != 0)
 	{
-		puts(" Running upper pass filter!");
+		puts("Running upper pass filter!");
 		box_blur(&image);
 	}
 	else if (sharpen != 0)
 	{
-		puts(" Running lower pass filter!");
+		puts("Running lower pass filter!");
 		sharpen_f(&image);
 		
 	}
 	else if (avg != 0)
 	{
-		puts(" Running average filter!");
+		puts("Running average filter!");
 		average_filter(&image);
 		
 	}
 	else if (min != 0)
 	{
-		puts(" Running minimum filter!");
+		puts("Running minimum filter!");
 		minimum_filter(&image);
 	}
 	else if (max != 0)
 	{
-		puts(" Running maximum filter!");
+		puts("Running maximum filter!");
 		maximum_filter(&image);
 	}
 	else if (median != 0)
 	{
-		puts(" Running median filter!");
+		puts("Running median filter!");
 		median_filter(&image);
 		
 	}
