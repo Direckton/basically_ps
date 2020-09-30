@@ -23,10 +23,5 @@ C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_
 C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(222,30): warning C4047: 'function': 'BMPImageInfo **' differs in levels of indirection from 'BMPImageInfo *'
 C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(222,24): warning C4024: 'averaging': different types for formal and actual parameter 1
 C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(255,6): warning C4101: 'temp': unreferenced local variable
-  Main.c
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Main.c(49,10): warning C4129: 'N': unrecognized character escape sequence
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Main.c(33,1): warning C4090: 'initializing': different 'const' qualifiers
-C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Main.c(34,1): warning C4090: 'initializing': different 'const' qualifiers
-  Generating Code...
 C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\basically_ps\Filters.c(309): warning C4715: 'check_border': not all control paths return a value
   basically_ps.vcxproj -> C:\Users\Michał\Desktop\nauka\Sezon 2\pk\c\basically_ps\basically_ps\Debug\basically_ps.exe
